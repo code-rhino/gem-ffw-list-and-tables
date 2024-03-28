@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# React List and Tables
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[video](https://vimeo.com/928482123/68426f9111?share=copy)
 
-## Available Scripts
+The walkthrough explains how to display a list of to-dos in a table within a React application, demonstrating how lists and tables can work together to organize and display data. Here's a step-by-step breakdown:
 
-In the project directory, you can run:
+### Step 1: Initial Setup
+The demo begins with a basic "to-do list" application structure that includes a `TodoTable` component receiving an empty list as a prop. This setup lays the groundwork for displaying to-do items within a table, although the table doesn't display any data yet.
 
-### `npm start`
+### Step 2: Creating a List of To-Dos
+A constant array named `todos` is created, containing objects that represent individual to-do items. Each object has a `completed` boolean indicating the to-do status and a `description` string detailing the to-do task.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```javascript
+const todos = [
+  {completed: false, description: "Finished List and Tables checkpoint"},
+  {completed: true, description: "Worked out this morning"},
+  {completed: true, description: "Called our mother"}
+];
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Step 3: Passing the To-Dos to the `TodoTable` Component
+The `todos` array is then passed to the `TodoTable` component as a prop, replacing the previously empty list. This allows the `TodoTable` component to access and render the to-do items.
 
-### `npm test`
+```javascript
+<TodoTable todos={todos} />
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Step 4: Mapping To-Dos to Table Rows
+Inside the `TodoTable` component, the `todos` prop is processed using the `map` method to generate a table row (`<tr>`) for each to-do item. Each row contains two table data (`<td>`) elements: one displaying the to-do `description` and the other indicating whether the task is `completed`.
 
-### `npm run build`
+```javascript
+const rows = todos.map((todo, index) => (
+  <tr key={index}>
+    <td>{todo.description}</td>
+    <td>{todo.completed ? "Yes" : "No"}</td>
+  </tr>
+));
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Step 5: Assembling the Table Structure
+The table structure is assembled using `<table>`, `<thead>`, and `<tbody>` elements. The table header (`<thead>`) defines two columns: "Description" and "Completed?". The table body (`<tbody>`) then renders the `rows` created from the to-dos.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```javascript
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Completed?</th>
+    </tr>
+  </thead>
+  <tbody>{rows}</tbody>
+</table>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Step 6: Displaying Completion Status as Strings
+To ensure the `completed` status is displayed as a human-readable string ("Yes" or "No") rather than a boolean value, a ternary operator is used within the mapping function to convert `true`/`false` values into corresponding strings.
 
-### `npm run eject`
+```javascript
+<td>{todo.completed ? "Yes" : "No"}</td>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Conclusion
+By following these steps, the React application successfully displays a list of to-do items within a table. Each row in the table corresponds to a to-do item, with one column displaying the task description and another indicating its completion status. This demonstrates how lists and tables can be effectively combined in React to present structured data.

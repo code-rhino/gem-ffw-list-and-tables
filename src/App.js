@@ -1,24 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
 
+function TodoTable({todos}) {
+  const rows = todos.map((todo, index) => (
+    <tr key={index}>
+      <td>{todo.description}</td>
+      <td>{todo.completed ? "Yes" : "No"}</td>
+    </tr>
+  ))
+  return(
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Completed?</th>
+        </tr>
+      </thead>
+      <tbody>{rows}</tbody>
+    </table>
+  )
+}
+
 function App() {
+
+  const todos = [
+    {completed: false, description: "Finished List and Tables checkpoint"},
+    {completed: true, description: "Worked out this morning"},
+    {completed: true, description: "Called our mother"}
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <h1>Todo List</h1>
+      <TodoTable todos={todos} />
+    </>
   );
 }
 
